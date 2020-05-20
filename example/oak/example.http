@@ -1,0 +1,54 @@
+### all product
+GET http://localhost:5000/api/v1/products
+
+### Get single product
+GET http://localhost:5000/api/v1/products/1
+### Get single product
+GET http://localhost:5000/api/v1/products/3
+### Get single product
+GET http://localhost:5000/api/v1/products/7
+
+### Add product
+POST http://localhost:5000/api/v1/products HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Product new",
+    "description": "This is product four",
+    "price": 19.99
+}
+
+### Update product
+PUT http://localhost:5000/api/v1/products/2 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Product new One",
+    "description": "This is product new One",
+    "price": 39.99
+}
+###
+PUT http://localhost:5000/api/v1/products/4 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Product new two",
+    "description": "This is product new two",
+    "price": 49.99
+}
+###
+PUT http://localhost:5000/api/v1/products/6 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Product new three",
+    "description": "This is product new three",
+    "price": 59.99
+}
+
+### Delete product
+DELETE http://localhost:5000/api/v1/products/1
+### Delete product
+DELETE http://localhost:5000/api/v1/products/3
+### Delete product
+DELETE http://localhost:5000/api/v1/products/5
