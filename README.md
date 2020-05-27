@@ -227,3 +227,194 @@ content-type: text/plain; charset=utf-8
 
 hello world
 ```
+
+## qrcode
+
+```ts
+// sample.js
+await fetch('https://jsonplaceholder.typicode.com/todos/1')
+	.then((res) => res.json())
+	.then((data) => console.log(data));
+```
+
+```sh
+> deno fmt
+
+C:\DEV\deno-tutorial\example\qrcode\sample.js
+
+> deno run --allow-net sample.js
+
+{ userId: 1, id: 1, title: "delectus aut autem", completed: false }
+
+> deno run --allow-net=jsonplaceholder.typicode.com sample.js
+
+{ userId: 1, id: 1, title: "delectus aut autem", completed: false }
+```
+
+```ts
+window.addEventListener('load', () => {
+	console.log('loaded');
+});
+
+window.addEventListener('unload', () => {
+	console.log('unloaded');
+});
+
+await fetch('https://jsonplaceholder.typicode.com/todos/1')
+	.then((res) => res.json())
+	.then((data) => console.log(data));
+```
+
+```sh
+> deno run --allow-net=jsonplaceholder.typicode.com sample.js
+
+loaded
+{ userId: 1, id: 1, title: "delectus aut autem", completed: false }
+unloaded
+```
+
+```ts
+import { qrcode } from 'https://deno.land/x/qrcode/mod.ts';
+
+const imageSrc = await qrcode(Deno.args[0]);
+
+// console.log(imageSrc);
+
+Deno.writeTextFile('qrcode.html', `<img src="${imageSrc}" />`);
+```
+
+```sh
+> deno run --allow-write sample.js test
+```
+
+### test
+
+```ts
+// sample.js
+export function sum(a, b) {
+	return a + b;
+}
+
+// sample.test.js
+import { sum } from './sample.js';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
+
+Deno.test('Testing sum', () => {
+	assertEquals(sum(1, 2), 3);
+});
+```
+
+```sh
+> deno test
+
+running 1 tests
+test Testing sum ... ok (3ms)
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out (3ms)
+```
+
+### non breaking code
+
+```ts
+// deps.js
+export { assertEquals } from 'https://deno.land/std@0.51.0/testing/asserts.ts';
+
+// sample.test.js
+import { sum } from './sample.js';
+import { assertEquals } from './deps.js';
+
+Deno.test('Testing sum', () => {
+	assertEquals(sum(1, 2), 3);
+});
+```
+
+```ts
+// deps.js
+export { assertEquals } from 'https://deno.land/std@0.52.0/testing/asserts.ts';
+
+// sample.test.js
+import { sum } from './sample.js';
+import { assertEquals } from './deps.js';
+
+Deno.test('Testing sum', () => {
+	assertEquals(sum(1, 2), 3);
+});
+```
+
+### download library
+
+```ts
+// library.js
+export default function print(arg) {
+	return console.log(arg);
+}
+
+// sample.js
+import print from './library.js';
+
+print('hi');
+```
+
+```sh
+> deno run sample.js
+
+hi
+```
+
+library.js > live server
+
+```ts
+// sample.js
+import print from 'http://127.0.0.1:5500/example/qrcode/library.js';
+
+print('hi');
+```
+
+```sh
+> deno run sample.js
+
+Download http://127.0.0.1:5500/example/qrcode/library.js
+hi
+```
+
+### lock
+
+```sh
+> deno cache --lock=lock.json --lock-write sample.js
+```
+
+```ts
+// lock.json
+{
+  "http://127.0.0.1:5500/example/qrcode/library.js": "03a2d104d77fba6344e6a52e3105c7cc0b3272d75dfdaa05e92eca452231bf2f"
+}
+
+```
+
+### reload
+
+```sh
+> deno cache --lock=lock.json sample.js
+
+> deno cache --reload --lock=lock.json sample.js
+
+Download http://127.0.0.1:5500/example/qrcode/library.js
+```
+
+```ts
+// library.js
+export default function print(arg) {
+	return console.log(arg + 'v2');
+}
+```
+
+- 위에서 library.js에 변화가 생겼기때문에 아래와같이 check failed
+- 저장된 lock.json과 다른점이 있다는것은 변조 파일이 있다는것
+
+```sh
+> deno cache --reload --lock=lock.json sample.js
+
+Download http://127.0.0.1:5500/example/qrcode/library.js
+Subresource integrity check failed --lock=lock.json
+http://127.0.0.1:5500/example/qrcode/library.js
+```
