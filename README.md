@@ -188,6 +188,17 @@ my name is ju
 
 ## oak
 
+- **`GET`** - /todos
+- **`POST`** - /todos (form data)
+- **`PUT`** - /todos/:id (form data)
+- **`DELETE`** - /todos/:id
+
+** run **
+
+```sh
+example/oak > deno run --allow-net server.ts
+```
+
 ```ts
 // server.ts
 import { Application } from 'https://deno.land/x/oak/mod.ts';
