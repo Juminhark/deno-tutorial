@@ -2,8 +2,6 @@
 
 A **JavaScript / TypeScript runtime** based on the V8 Javascript engine and the **Rust** programming language
 
-- [Deno Crash Course-Traversy Media](https://www.youtube.com/watch?v=NHHhiqwcfRM)
-
 ## 1. powershell 관리자권한으로 실행.
 
 ```powershell
@@ -241,6 +239,8 @@ hello world
 
 ## qrcode
 
+- get API data
+
 ```ts
 // sample.js
 await fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -261,6 +261,8 @@ C:\DEV\deno-tutorial\example\qrcode\sample.js
 
 { userId: 1, id: 1, title: "delectus aut autem", completed: false }
 ```
+
+- Event 전, 후 처리
 
 ```ts
 window.addEventListener('load', () => {
@@ -429,3 +431,8 @@ Download http://127.0.0.1:5500/example/qrcode/library.js
 Subresource integrity check failed --lock=lock.json
 http://127.0.0.1:5500/example/qrcode/library.js
 ```
+
+# reference
+
+- [Deno Crash Course-Traversy Media](https://www.youtube.com/watch?v=NHHhiqwcfRM)
+- [Deno Full Course-Bitfumes](https://www.youtube.com/watch?v=zU6-8w1IR-I)

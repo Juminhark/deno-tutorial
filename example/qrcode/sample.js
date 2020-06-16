@@ -1,7 +1,7 @@
-export function sum(a, b) {
-	return a + b;
-}
+import { qrcode } from 'https://deno.land/x/qrcode/mod.ts';
 
-import print from 'http://127.0.0.1:5500/example/qrcode/library.js';
+const imageSrc = await qrcode(Deno.args[0]);
 
-print('hi');
+console.log(imageSrc);
+
+Deno.writeTextFile('qrcode.html', `<img src="${imageSrc}" />`);
