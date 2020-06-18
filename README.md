@@ -157,7 +157,7 @@ Compile file:///C:/DEV/deno-tutorial/dateTime.ts
 141
 ```
 
-## runtime api - createFile
+## Runtime API / Functions - createFile
 
 ```ts
 const encoder = new TextEncoder();
@@ -178,7 +178,7 @@ hello world
 my name is ju
 ```
 
-## runtime api - ReadFile
+## Runtime API / Functions - ReadFile
 
 ```ts
 let file = await Deno.open('greet.txt');
@@ -192,6 +192,8 @@ Compile file:///C:/DEV/deno-tutorial/readFile.ts
 hello world
 my name is ju
 ```
+
+# [**manual보고 다시 셋팅**](https://deno.land/manual)
 
 ## [Third Party Modules](https://deno.land/x) example
 
@@ -273,9 +275,10 @@ C:\DEV\deno-tutorial\example\qrcode\sample.js
 { userId: 1, id: 1, title: "delectus aut autem", completed: false }
 ```
 
-### addEventListener
+### addEventListener - Runtime API / Type Aliases
 
 ```ts
+// interface Window extends EventTarget
 window.addEventListener('load', () => {
 	console.log('loaded');
 });
@@ -297,7 +300,7 @@ loaded
 unloaded
 ```
 
-### writeTextFile
+### writeTextFile - Runtime API / Functions
 
 ```ts
 import { qrcode } from 'https://deno.land/x/qrcode/mod.ts';
@@ -313,7 +316,7 @@ Deno.writeTextFile('qrcode.html', `<img src="${imageSrc}" />`);
 > deno run --allow-write sample.js test
 ```
 
-### test
+### test - Runtime API / Functions
 
 ```ts
 // sample.js
@@ -339,7 +342,7 @@ test Testing sum ... ok (3ms)
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out (3ms)
 ```
 
-### non breaking code
+### non breaking code - 구조
 
 - deps.js에 따로 관리 => 버젼업 대응. 매번 여러파일을 바꿔줄 필요없음
 
@@ -369,9 +372,7 @@ Deno.test('Testing sum', () => {
 });
 ```
 
-### download library
-
-- function 관리
+### download library - 구조
 
 ```ts
 // library.js
@@ -407,7 +408,7 @@ Download http://127.0.0.1:5500/example/qrcode/library.js
 hi
 ```
 
-### lock
+### lock - cache 명령어
 
 ```sh
 > deno cache --lock=lock.json --lock-write sample.js
@@ -421,7 +422,7 @@ hi
 
 ```
 
-### reload
+### reload - cache 명령어
 
 ```sh
 > deno cache --lock=lock.json sample.js
@@ -481,3 +482,5 @@ http://localhost:8000/
 
 - [Deno Crash Course-Traversy Media](https://www.youtube.com/watch?v=NHHhiqwcfRM)
 - [Deno Full Course-Bitfumes](https://www.youtube.com/watch?v=zU6-8w1IR-I)
+
+**당분간 deno no! => 나중에 사용할기회 생기면 다시 update**
