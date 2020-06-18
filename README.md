@@ -2,6 +2,12 @@
 
 A **JavaScript / TypeScript runtime** based on the V8 Javascript engine and the **Rust** programming language
 
+**Table of Contents**
+
+[TOCM]
+
+[TOC]
+
 ## 1. powershell 관리자권한으로 실행.
 
 ```powershell
@@ -262,7 +268,7 @@ C:\DEV\deno-tutorial\example\qrcode\sample.js
 { userId: 1, id: 1, title: "delectus aut autem", completed: false }
 ```
 
-- Event 전, 후 처리
+### addEventListener
 
 ```ts
 window.addEventListener('load', () => {
@@ -286,12 +292,14 @@ loaded
 unloaded
 ```
 
+### writeTextFile
+
 ```ts
 import { qrcode } from 'https://deno.land/x/qrcode/mod.ts';
 
 const imageSrc = await qrcode(Deno.args[0]);
 
-// console.log(imageSrc);
+// qrcode html 파일 생성.
 
 Deno.writeTextFile('qrcode.html', `<img src="${imageSrc}" />`);
 ```
@@ -328,6 +336,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out (3ms)
 
 ### non breaking code
 
+- deps.js에 따로 관리 => 버젼업 대응. 매번 여러파일을 바꿔줄 필요없음
+
 ```ts
 // deps.js
 export { assertEquals } from 'https://deno.land/std@0.51.0/testing/asserts.ts';
@@ -355,6 +365,8 @@ Deno.test('Testing sum', () => {
 ```
 
 ### download library
+
+- function 관리
 
 ```ts
 // library.js
