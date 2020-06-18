@@ -4,9 +4,12 @@ A **JavaScript / TypeScript runtime** based on the V8 Javascript engine and the 
 
 **Table of Contents**
 
-[Headers](#headers)
+1. [Getting Started](#GettingStarted)
+2. [적용하기](#jumin)
 
-<a name="headers"/>
+<a name="GettingStarted"/>
+
+# Getting Started
 
 ## 1. powershell 관리자권한으로 실행.
 
@@ -19,7 +22,7 @@ A **JavaScript / TypeScript runtime** based on the V8 Javascript engine and the 
 
 ## 2. VSC extension : Deno
 
-## 3. Getting Started
+## 3. command line
 
 ```sh
 > deno
@@ -68,6 +71,8 @@ http://localhost:8000/
 | --allow-hrtime  | Allow High resolution time measurement |
 | --allow-run     | Allow Subprocess                       |
 | -A              | Allow all permissions                  |
+
+**example** :
 
 ```ts
 // C:\DEV\deno-tutorial\main.ts
@@ -188,7 +193,7 @@ hello world
 my name is ju
 ```
 
-# [Third Party Modules](https://deno.land/x) example
+## [Third Party Modules](https://deno.land/x) example
 
 ## oak
 
@@ -442,6 +447,34 @@ export default function print(arg) {
 Download http://127.0.0.1:5500/example/qrcode/library.js
 Subresource integrity check failed --lock=lock.json
 http://127.0.0.1:5500/example/qrcode/library.js
+```
+
+<a name="jumin"/>
+
+# 적용하기
+
+## server
+
+```ts
+// deps.js
+export { serve } from 'https://deno.land/std/http/server.ts';
+export { serve as serveLatest } from 'https://deno.land/std@0.57.0/http/server.ts';
+```
+
+```ts
+// server.js
+import { serve } from './deps.js';
+
+const s = serve({ port: 8000 });
+console.log('http://localhost:8000/');
+for await (const req of s) {
+	req.respond({ body: 'Hello World\n' });
+}
+```
+
+```sh
+> deno run --allow-net server.js
+http://localhost:8000/
 ```
 
 # reference
