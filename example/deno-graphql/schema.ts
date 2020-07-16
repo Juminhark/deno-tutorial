@@ -1,8 +1,6 @@
-import {
-	applyGraphQL,
-	gql,
-	GQLError,
-} from 'https://deno.land/x/oak_graphql/mod.ts';
+import gql from 'https://cdn.pika.dev/graphql-tag';
+import { GraphQLError } from 'https://cdn.pika.dev/graphql';
+import { applyGraphQL } from 'https://deno.land/x/oak_graphql/applyGraphQL.ts';
 
 let counter = 0;
 
@@ -36,7 +34,7 @@ type AddType {
 `;
 
 const resolveContext = (ctx: any, resolverName: string) => {
-	const agent: string = ctx.req.headers.ger('User-Agent');
+	const agent: string = ctx.req.headers.get('User-Agent');
 	ctx.res.headers.set(
 		'resolver',
 		`${agent.toLowerCase().replace('/', '-')}-${resolverName}`
@@ -97,7 +95,7 @@ export const GraphQLService = async (path: string) => {
 		path,
 		typeDefs,
 		resolvers,
-		context: (ctx) => {
+		context: (ctx: any) => {
 			return {
 				req: ctx.request,
 				res: ctx.response,
