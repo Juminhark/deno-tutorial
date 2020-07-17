@@ -1,7 +1,8 @@
-import gql from 'https://cdn.pika.dev/graphql-tag';
-import { GraphQLError } from 'https://cdn.pika.dev/graphql';
-import { applyGraphQL } from 'https://deno.land/x/oak_graphql/applyGraphQL.ts';
-
+import {
+	applyGraphQL,
+	gql,
+	GQLError,
+} from 'https://deno.land/x/oak_graphql/mod.ts';
 let counter = 0;
 
 const typeDefs = (gql as any)`
@@ -25,6 +26,11 @@ input HelloInput {
 type HelloType {
   ab: String
   ba: String
+}
+
+input AddInput {
+	a: Int
+	b: Int
 }
 
 type AddType {
@@ -95,7 +101,7 @@ export const GraphQLService = async (path: string) => {
 		path,
 		typeDefs,
 		resolvers,
-		context: (ctx: any) => {
+		context: (ctx) => {
 			return {
 				req: ctx.request,
 				res: ctx.response,
